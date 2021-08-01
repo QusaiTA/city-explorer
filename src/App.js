@@ -2,6 +2,8 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import './App.css';
 
 class App extends React.Component{
   constructor(props){
@@ -33,19 +35,11 @@ class App extends React.Component{
        lon : local.data[0].lon,
        lat : local.data[0].lat,
        showMap : true
-
-      
-     
-
       })
-      console.log(local.data[0].display_name);
+      
 
     } catch {
-      // console.log('hello');
       this.setState({
-
-        
-
         showMap : false,
         displayErr:true
       })
@@ -56,29 +50,29 @@ class App extends React.Component{
 
 
   render(){
-  console.log(this.state);
 
 
   return (
     
    <>
   
-   <h1> Qusai </h1>
-   <Form onSubmit ={this.submittedLocation}>
+   <h1> City Explorer </h1>
+   <Form id = "form" onSubmit ={this.submittedLocation}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Location</Form.Label>
-    <Form.Control  name ='Location' type="text" placeholder="Enter Location" />
-    
-  </Form.Group>
+    <Form.Control  className = "control" name ='Location' type="text" placeholder="Enter Location" />
+    </Form.Group>
 
    
   <Button variant="primary" type="submit">
     Explore
   </Button>
-</Form>
-<p>{this.state.SelectCity}</p>
 
-{ 
+  
+</Form>
+      <p className = "name">{this.state.SelectCity}</p>
+
+      { 
         this.state.showMap &&
         <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.a10de6b9367d6edc81178a904969c1de&center=${this.state.lat},${this.state.lon}`} alt='map' />
       }
@@ -87,22 +81,8 @@ class App extends React.Component{
        this.state.displayErr && 
        this.state.errorMsg 
        }
-
-
-  </>
-
-  );
-
-
-
-  }
-
-
-
-
-
-
-
-}
+</>
+);
+ }}
 
 export default App;
