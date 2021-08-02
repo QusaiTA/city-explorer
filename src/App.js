@@ -81,7 +81,8 @@ class App extends React.Component{
 
        { 
        this.state.displayErr && 
-       this.state.errorMsg 
+       
+       <p className = "name">Error : {this.state.errorMsg }</p>
        }
 </>
 );
