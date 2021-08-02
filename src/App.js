@@ -71,6 +71,8 @@ class App extends React.Component{
   
 </Form>
       <p className = "name">{this.state.SelectCity}</p>
+      <p className = "name">lat : {this.state.lat}</p>
+      <p className = "name">lon : {this.state.lon}</p>
 
       { 
         this.state.showMap &&
