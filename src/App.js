@@ -15,7 +15,10 @@ class App extends React.Component{
       lat : '',
       showMap: false,
       errorMsg : 'This city it not exsist',
-      displayErr : false
+      displayErr : false,
+      weatherData:[],
+      
+
       
     }
   }
@@ -23,18 +26,26 @@ class App extends React.Component{
   submittedLocation = async(event) => {
 
     event.preventDefault();
-    let cityName = event.target.Location.value;
-    let key = `pk.a10de6b9367d6edc81178a904969c1de`;
-    let Url = `https://eu1.locationiq.com/v1/search.php?key=${key}&q=${cityName}&format=json`;
+    let city = event.target.Location.value;
+    let Url = `https://eu1.locationiq.com/v1/search.php?key=pk.a10de6b9367d6edc81178a904969c1de&q=${city}&format=json`;
    
     try{
-
       let local = await axios.get(Url);
+      const locationIqData = local.data[0];
+      const cityName = locationIqData.display_name.split(',')[0];
+      let response = await axios.get(`http://localhost:3030/weather?searchQuery=${cityName}&lat=${locationIqData.lat}&lon=${locationIqData.lon}`)
+      console.log(cityName);
+      console.log(response);
+
+
       this.setState ({
-        SelectCity : local.data[0].display_name,
+       SelectCity : locationIqData.display_name,
        lon : local.data[0].lon,
        lat : local.data[0].lat,
-       showMap : true
+       showMap : true,
+       weatherData: response.data,
+      
+
       })
       
 
@@ -83,7 +94,32 @@ class App extends React.Component{
        this.state.displayErr && 
        
        <p className = "name">Error : {this.state.errorMsg }</p>
+       
        }
+
+       {/* <p>
+        {console.log(this.state.weatherData)}             
+        </p> */}
+       {
+         this.state.weatherData &&
+        this.state.weatherData.map(element => {
+         return (
+
+           <div>
+              <p>{element.valid_date}</p>
+              <p>{element.description}</p>
+              
+              
+              
+           </div>
+
+         )
+
+
+        })
+      }
+
+       
 </>
 );
  }}
