@@ -106,8 +106,10 @@ class App extends React.Component{
          return (
 
            <div>
-              <p>{element.valid_date}</p>
-              <p>{element.description}</p>
+              <p id = "date" className = "name">{element.valid_date}</p>
+              <p id = "dis" className = "name">{element.description}</p>
+              {/* <p id = "dis" className = "name">Low :{element.min_temp}</p>
+              <p id = "dis" className = "name">High: {element.max_temp}</p> */}
               
               
               
