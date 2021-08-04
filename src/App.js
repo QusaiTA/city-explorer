@@ -17,6 +17,7 @@ class App extends React.Component{
       errorMsg : 'This city it not exsist',
       displayErr : false,
       weatherData:[],
+      movieData:[],
       
 
       
@@ -50,6 +51,24 @@ class App extends React.Component{
       
 
     } catch {
+      this.setState({
+        showMap : false,
+        displayErr:true
+      })
+
+
+    }
+    try{
+      let local = await axios.get(Url);
+      const locationIqData = local.data[0];
+      const cityName = locationIqData.display_name.split(',')[0];
+   
+      let moveis = await axios.get(`http://localhost:3030/movies?searchQuery=${cityName}`);
+      this.setState ({
+     
+       movieData : moveis.data
+      })
+      } catch {
       this.setState({
         showMap : false,
         displayErr:true
@@ -119,6 +138,34 @@ class App extends React.Component{
 
 
         })
+      }
+      {
+         this.state.movieData &&
+         this.state.movieData.map(element => {
+          return (
+ 
+            <div>
+               <p id = "date" className = "name"> popularity :{element.popularity}</p>
+               <p id = "dis" className = "name"> release date :{element.release_date}</p>
+               
+               {/* <p id = "dis" className = "name">Low :{element.min_temp}</p>
+               <p id = "dis" className = "name">High: {element.max_temp}</p> */}
+               <p id = "date" className = "name"> title :{element.title}</p>
+               <p id = "dis" className = "name"> poster path :{element.poster_path}</p>
+               <p id = "date" className = "name"> vote average:{element.vote_average}</p>
+               <p id = "dis" className = "name"> vote count:{element.vote_count}</p>
+               
+               
+               
+            </div>
+ 
+          )
+ 
+ 
+         })
+       
+
+
       }
 
        
