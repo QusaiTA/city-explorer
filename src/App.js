@@ -59,13 +59,15 @@ class App extends React.Component{
 
     }
     try{
-      let local = await axios.get(Url);
-      const locationIqData = local.data[0];
-      const cityName = locationIqData.display_name.split(',')[0];
+      // let local = await axios.get(Url);
+      // const locationIqData = local.data[0];
+      // const cityName = locationIqData.display_name.split(',')[0];
    
-      let moveis = await axios.get(`http://localhost:3030/movies?searchQuery=${cityName}`);
+       
+    let moveis = await axios.get(`http://localhost:3030/movies?searchQuery=${city}`);
+    console.log(moveis);
       this.setState ({
-     
+      
        movieData : moveis.data
       })
       } catch {
@@ -151,7 +153,8 @@ class App extends React.Component{
                {/* <p id = "dis" className = "name">Low :{element.min_temp}</p>
                <p id = "dis" className = "name">High: {element.max_temp}</p> */}
                <p id = "date" className = "name"> title :{element.title}</p>
-               <p id = "dis" className = "name"> poster path :{element.poster_path}</p>
+               {/* <p id = "dis" className = "name"> {element.poster_path}</p> */}
+               <img src = {element.poster_path} alt="img"/>
                <p id = "date" className = "name"> vote average:{element.vote_average}</p>
                <p id = "dis" className = "name"> vote count:{element.vote_count}</p>
                
